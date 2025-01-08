@@ -6,7 +6,7 @@ import jakarta.persistence.*
 class User(
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     val number: Long,
 
     val name: String,
@@ -28,7 +28,7 @@ class User(
     @JoinColumn(nullable = false)
     val career: Career,
 
-    val userType: String
+    val userType: UserType = UserType.User
 
 ) {
 

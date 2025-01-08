@@ -5,11 +5,11 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 
-@Entity(name = "month-quests")
-class MonthQuests(
+@Entity(name = "daily-productivity")
+class DailyProductivity(
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
     val month: Int, // 월
     val week: Int, // 주
@@ -21,8 +21,5 @@ class MonthQuests(
     val employeeSalaries: Long, // 직원급여
     val retirementBenefits: Long, // 퇴직급여
     val socialInsurance: Long // 4대 보험료
-
-
     ) {
-
 }

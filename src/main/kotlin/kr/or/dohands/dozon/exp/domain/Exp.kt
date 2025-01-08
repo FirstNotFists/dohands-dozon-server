@@ -7,30 +7,21 @@ import kr.or.dohands.dozon.user.domain.User
 class Exp(
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
+
     val totalExp: Long,
-    val roleQuests: Long,
+    val jobQuests: Long,
     val leaderQuests: Long,
-    val companyProject: Long,
+    val swordProject: Long,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     val number: User,
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
-    val firstEvaluation: HrEvaluation,
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
-    val secondEvaluation: HrEvaluation,
-
+    val firstEvaluation: Long,
+    val secondEvaluation: Long,
     val year: Long
 
-
 ) {
-
-
-
 }
