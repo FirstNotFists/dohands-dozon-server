@@ -6,15 +6,14 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import java.math.BigDecimal
 
-@Entity(name = "week-quests")
-class WeekQuests(
+@Entity(name = "week-productivity")
+class WeekProductivity(
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
     val max: BigDecimal,
     val medium: BigDecimal,
     val week: Int,
     val productivity: BigDecimal
 ) {
-
 }
