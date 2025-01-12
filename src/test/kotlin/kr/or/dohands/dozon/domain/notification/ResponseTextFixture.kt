@@ -1,4 +1,4 @@
-package kr.or.dohands.dozon.notification
+package kr.or.dohands.dozon.domain.notification
 
 object ResponseTestFixture {
 

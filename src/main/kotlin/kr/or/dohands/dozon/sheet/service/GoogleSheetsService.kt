@@ -11,7 +11,6 @@ import com.google.auth.oauth2.GoogleCredentials
 import com.google.auth.oauth2.ServiceAccountCredentials
 import java.io.FileInputStream
 
-
 class GoogleSheetsService(
     private val credentialPath:String,
     private val email: String,
@@ -19,13 +18,6 @@ class GoogleSheetsService(
     private val sheetId: String
 ) {
     private var sheets: Sheets? = null
-
-//    init {
-//        println("!!! ${credentialPath}")
-//        println("!!! ${email}")
-//        println("!!! ${applicationName}")
-//        println("!!! ${sheetId}")
-//    }
 
     fun getSheetsService(): Sheets {
         if (sheets == null) {
