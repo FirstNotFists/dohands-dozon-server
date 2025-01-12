@@ -1,8 +1,12 @@
 package kr.or.dohands.dozon.user.domain
 
 import jakarta.persistence.*
+import lombok.AllArgsConstructor
+import lombok.Getter
 
 @Entity(name = "users")
+@AllArgsConstructor
+@Getter
 class User(
 
     @Id
@@ -12,7 +16,7 @@ class User(
     val name: String,
     val joinDate: String,
     val id: String,
-    val password: Long,
+    val password: String,
     val newPassword: String,
     val exp: Long,
 
@@ -22,16 +26,16 @@ class User(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
-    val team: Team,
+    val part: Part,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     val career: Career,
 
-    val userType: UserType = UserType.User
+    val userType: UserType = UserType.User,
+
+    val pushToken: String
 
 ) {
-
-
 
 }

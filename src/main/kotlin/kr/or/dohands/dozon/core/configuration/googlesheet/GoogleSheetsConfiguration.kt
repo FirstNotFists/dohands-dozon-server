@@ -1,4 +1,4 @@
-package kr.or.dohands.dozon.sheet.config
+package kr.or.dohands.dozon.core.configuration.googlesheet
 
 import kr.or.dohands.dozon.sheet.service.GoogleSheetsService
 import org.springframework.beans.factory.annotation.Value
