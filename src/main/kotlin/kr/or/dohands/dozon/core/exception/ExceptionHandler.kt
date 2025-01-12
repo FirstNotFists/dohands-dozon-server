@@ -1,7 +1,7 @@
 package kr.or.dohands.dozon.core.exception
 
 import com.fasterxml.jackson.databind.exc.MismatchedInputException
-import kr.or.dohands.dozon.core.response.Response
+import kr.or.dohands.dozon.core.responsetemplate.Response
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 

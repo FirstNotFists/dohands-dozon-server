@@ -1,10 +1,9 @@
-package kr.or.dohands.dozon.notification
+package kr.or.dohands.dozon.domain.notification
 
 import com.niamedtech.expo.exposerversdk.ExpoPushNotificationClient
 import kr.or.dohands.dozon.notification.request.PushNotification
 import kr.or.dohands.dozon.notification.response.ReceiptResponse
 import kr.or.dohands.dozon.notification.response.TicketResponse
-import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient
 import org.apache.hc.client5.http.impl.classic.HttpClients
 import org.assertj.core.api.Assertions
