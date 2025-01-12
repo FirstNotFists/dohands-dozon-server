@@ -8,7 +8,8 @@ class LevelExpType(
 
     @Id
     val level: String,
-    val exp: Long
+    val exp: Long,
+    val type: String
 ) {
 
 }

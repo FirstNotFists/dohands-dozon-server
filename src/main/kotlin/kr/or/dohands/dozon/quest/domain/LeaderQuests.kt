@@ -17,4 +17,25 @@ class LeaderQuests (
     val exp: Long, // 부여 경험치
     val content: String // 비고
 ){
+
+    companion object{
+
+    fun toEntity (
+                  month: Int,
+                  number: User,
+                  questName: String,
+                  achievement: String,
+                  exp: Long,
+                  content: String): LeaderQuests {
+        return LeaderQuests(
+            0L,
+            month,
+            number,
+            questName,
+            achievement,
+            exp,
+            content
+        )
+        }
+    }
 }
