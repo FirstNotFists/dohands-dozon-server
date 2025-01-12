@@ -43,10 +43,10 @@ class ExpoPushNotificationClient private constructor(
         request.setHeader("Host", "exp.host")
         request.setHeader("accept", "application/json")
         request.setHeader("accept-encoding", "gzip, deflate")
-        request.setHeader("content-type", "application/json")
+        request.setHeader("content-type", "application/json; charset=utf-8")
 
         val json = objectMapper.writeValueAsString(requestData)
-        val stringEntity = StringEntity(json)
+        val stringEntity = StringEntity(json, Charsets.UTF_8)
         request.entity = stringEntity
 
         return request
