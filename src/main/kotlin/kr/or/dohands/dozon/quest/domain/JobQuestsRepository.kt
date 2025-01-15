@@ -1,6 +1,7 @@
 package kr.or.dohands.dozon.quest.domain
 
 import jakarta.transaction.Transactional
+import kr.or.dohands.dozon.user.domain.Career
 import kr.or.dohands.dozon.user.domain.User
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor
@@ -47,5 +48,8 @@ interface JobQuestsRepository: JpaRepository<JobQuests, Long>, JpaSpecificationE
     @Query(value = "UPDATE `job-quests` SET week = :week WHERE id = :id"
         , nativeQuery = true)
     fun updateWeek(week: Long?, id: Long)
+
+
+    fun findByCareer(career: String): List<JobQuests>
 
 }

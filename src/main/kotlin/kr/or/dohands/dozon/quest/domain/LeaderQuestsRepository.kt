@@ -53,5 +53,7 @@ interface LeaderQuestsRepository: JpaRepository<LeaderQuests, Long>, JpaSpecific
         , nativeQuery = true)
     fun updateUser(user: User, id: Long)
 
+    fun findByNumber(number: User): List<LeaderQuests>
+
 
 }
