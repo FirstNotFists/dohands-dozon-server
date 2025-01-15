@@ -15,4 +15,12 @@ class LevelExpTypeService(
         return levelExpTypeRepository.findNextLevel(type, exp)
     }
 
+    fun findNextLevelNowCheck(type: String, exp: Long) : List<LevelExpType> {
+        return levelExpTypeRepository.findNextLevelNowCheck(type, exp)
+    }
+
+    fun findByLevel(level: String): LevelExpType {
+        return levelExpTypeRepository.findByLevel(level)
+    }
+
 }

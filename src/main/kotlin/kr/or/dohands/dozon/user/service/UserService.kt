@@ -7,6 +7,8 @@ import kr.or.dohands.dozon.exp.controller.data.ExpHistoryResponse
 import kr.or.dohands.dozon.exp.service.ExpHistoryService
 import kr.or.dohands.dozon.exp.service.ExpService
 import kr.or.dohands.dozon.user.controller.data.*
+import kr.or.dohands.dozon.user.domain.Career
+import kr.or.dohands.dozon.user.domain.LevelExpType
 import kr.or.dohands.dozon.user.domain.User
 import kr.or.dohands.dozon.user.domain.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -32,8 +34,8 @@ class UserService @Autowired constructor(
         return userRepository.findUserById(id)
     }
 
-    private fun updatePassword(password: String, user: User): Unit {
-        userRepository.updatePasswordById(password, user.id)
+    private fun updatePassword(id : String, password : String): Unit {
+        userRepository.updatePasswordById(id, password)
     }
 
     @Transactional
@@ -43,8 +45,7 @@ class UserService @Autowired constructor(
 
     @Transactional
     fun edit (updateUserRequest: EditRequest): Unit {
-        val user: User = findUserById(updateUserRequest.id)
-        updatePassword(updateUserRequest.password, user)
+        updatePassword(updateUserRequest.id, updateUserRequest.password)
     }
 
     @Transactional
@@ -59,11 +60,6 @@ class UserService @Autowired constructor(
 
         return SignInResponse.of(user, token, exp)
     }
-
-//    @Transactional
-//    fun signUp(signUpRequest: SignInRequest): SignUpResponse {
-//
-//    }
 
 
     @Transactional
@@ -96,6 +92,7 @@ class UserService @Autowired constructor(
         var needNextLevelExp = 0L
         val type = user.level.level.substring(0, 1)
         val myExp = user.exp
+        println(myExp)
 
         val nextLevelExp = levelExpTypeService.findNextLevel(type, myExp)
         needNextLevelExp = nextLevelExp.get(0).exp // 총 필요 경험치
@@ -107,5 +104,20 @@ class UserService @Autowired constructor(
 
         return MyPageResponse.of(level, myExp, needNextLevelExp, history)
     }
+
+    @Transactional
+    fun updateExp(exp: Long, number: Long) {
+        userRepository.updateExpByNumber(exp, number)
+    }
+
+    @Transactional
+    fun updateLevel(nextLevel: LevelExpType, user: User) {
+        userRepository.updateByLevel(nextLevel, user.number)
+    }
+
+    fun findUsersByCareer(career: Career): List<User> {
+        return userRepository.findUserByCareer(career)
+    }
+
 
 }
