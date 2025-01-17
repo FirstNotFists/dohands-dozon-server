@@ -37,4 +37,14 @@ interface UserRepository: JpaRepository<User, Long>, JpaSpecificationExecutor<Us
 
     }
 
+    @Modifying
+    @Transactional
+    @Query("update users m set m.level = :level where m.number = :number")
+    fun updateByLevel(level: LevelExpType, number: Long)
+
+    fun findUserByCareer(career: Career): List<User>
+
+    @Query("select m from users m join fetch m.level join fetch m.career join fetch m.part")
+    fun findUsers() : List<User>
+
 }

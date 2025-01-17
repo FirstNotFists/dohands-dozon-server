@@ -10,44 +10,31 @@ import lombok.EqualsAndHashCode
 /**
  * Response including tickets for push notifications.
  */
-//@Data
-//@EqualsAndHashCode(callSuper = false)
 class TicketResponse @JsonCreator constructor(
-    override val data: List<Ticket>
-) : BaseResponse<List<TicketResponse.Ticket>>() {
+    override val data: List<Any>
+) : BaseResponse<List<Any>>() {
 
-
-//    @Data
-//    @EqualsAndHashCode(callSuper = false)
     class Ticket (
-        @JsonProperty("status")
         var status: String,
-        @JsonProperty("id")
         var id: String,
-        @JsonProperty("message")
-        var message: String,
-        @JsonProperty("details")
-        var details: Details
+        var message: String? = null,
+        var details: Details? = null
     ) : GenericData() {
 
         enum class Error {
-            @JsonProperty("DeviceNotRegistered")
             DEVICE_NOT_REGISTERED,
 
-            @JsonProperty("InvalidCredentials")
             INVALID_CREDENTIALS
         }
 
-        @Data
+//        @Data
         class Details(
-            @JsonProperty("error")
+//            @JsonProperty("error")
             var error: Error? = null,
-            @JsonProperty("sentAt")
+//            @JsonProperty("sentAt")
             var sentAt: Int? = null,
-            @JsonProperty("additionalProperties")
+//            @JsonProperty("additionalProperties")
             var additionalProperties: JsonNode? = null
         )
     }
 }
-
-

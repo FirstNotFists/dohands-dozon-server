@@ -1,17 +1,19 @@
-package kr.or.dohands.dozon.quest.service
+package kr.or.dohands.dozon.quest.match
 
 import com.google.api.services.sheets.v4.model.ValueRange
+import jakarta.transaction.Transactional
 import kr.or.dohands.dozon.quest.domain.JobQuests
 import kr.or.dohands.dozon.quest.domain.JobQuestsRepository
 import kr.or.dohands.dozon.sheet.service.GoogleSheetsService
+import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 
 @Service
-class JobQuestMatchService(
+class JobQuestMatch(
     private val googleSheetsService: GoogleSheetsService,
     private val jobQuestsRepository: JobQuestsRepository
-) {
+): SheetMatch {
 
     private var centerName : String = ""
     private var group: Long =0
@@ -22,7 +24,8 @@ class JobQuestMatchService(
     private var month : Long? = null
 
 
-    fun match() {
+    @Transactional
+    override fun match() {
         val quests: List<JobQuests> = jobQuestsRepository.findAll()
         val productivity: ValueRange = googleSheetsService.getValue("직무별 퀘스트", "H14:I65") // 주차별 생산성
         val center: ValueRange = googleSheetsService.getValue("직무별 퀘스트", "F11:H11") // 센터
@@ -46,13 +49,6 @@ class JobQuestMatchService(
 
 
     }
-
-//    private fun matchValue() {
-//        if(type == "월") {
-//
-//        }else if(type == "주")
-//
-//    }
 
     private fun biggerThanSheet(exp: ValueRange, productivity: ValueRange,) {
         if(type == "월"){

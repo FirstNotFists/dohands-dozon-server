@@ -1,13 +1,14 @@
 package kr.or.dohands.dozon.exp.controller.data
 
 import kr.or.dohands.dozon.exp.domain.ExpHistory
+import java.time.LocalDateTime
 import java.util.*
 import kotlin.collections.ArrayList
 
 class ExpHistoryResponse(
     val exp: Long,
-    val number: Long,
-    val date: Date,
+    val grade: String,
+    val date: LocalDateTime,
     val questType: String
 ) {
     companion object{
@@ -18,7 +19,7 @@ class ExpHistoryResponse(
                 to.add(
                     ExpHistoryResponse(
                         i.exp,
-                        i.number,
+                        i.grade,
                         i.updateDate,
                         i.questType
                     )

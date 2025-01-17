@@ -8,9 +8,5 @@ import org.springframework.data.jpa.repository.Query
 
 interface PostsRepository: JpaRepository<Posts, Long> , JpaSpecificationExecutor<Posts>{
 
-//    @Modifying
-//    @Transactional
-//    @Query("update posts m set m.title = ")
-//    fun updatePostsById(posts: Posts, id: Long)
 
 }

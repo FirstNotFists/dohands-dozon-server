@@ -5,37 +5,49 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import kr.or.dohands.dozon.post.controller.data.PostRequest
+import java.time.LocalDateTime
 
 @Entity(name = "posts")
 class Posts(
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
-    val title: String,
-    val content: String,
+
+    var title: String,
+    var content: String,
+    val date: LocalDateTime
 ) {
+
+    fun update (post: PostRequest.body): Unit{
+        this.title = post.title
+        this.content = post.content
+    }
 
     companion object {
 
         fun toEntity (
-            post: PostRequest.create,
+            post: PostRequest.body,
         ) : Posts {
             return Posts(
             0,
             post.title,
-            post.content
+            post.content,
+            LocalDateTime.now()
             )
         }
 
         fun toEntity (
-        post: PostRequest.update, id: Long
+        post: PostRequest.body, id: Long
         ) : Posts {
             return Posts(
                 id,
                 post.title,
-                post.content
+                post.content,
+                LocalDateTime.now()
             )
         }
+
+
 
     }
 }

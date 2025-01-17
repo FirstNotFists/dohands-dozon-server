@@ -1,4 +1,4 @@
-package kr.or.dohands.dozon.exp.domain
+package kr.or.dohands.dozon.quest.domain
 
 import jakarta.persistence.Entity
 import jakarta.persistence.Id

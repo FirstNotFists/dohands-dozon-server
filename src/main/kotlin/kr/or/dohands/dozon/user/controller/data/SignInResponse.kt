@@ -9,7 +9,7 @@ import lombok.Data
 @AllArgsConstructor
 class SignInResponse(
     val userType: UserType,
-    val exp: Long,
+    val exp: Long?,
     val number: Long,
     val career: String,
     val id: String,
@@ -21,7 +21,7 @@ class SignInResponse(
 ){
 
     companion object {
-        fun of(user: User, token:String, exp: Long): SignInResponse{
+        fun of(user: User, token:String, exp: Long?): SignInResponse{
             return SignInResponse(
                 user.userType,
                 exp,
