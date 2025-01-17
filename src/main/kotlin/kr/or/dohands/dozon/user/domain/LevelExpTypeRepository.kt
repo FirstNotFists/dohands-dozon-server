@@ -11,8 +11,10 @@ interface LevelExpTypeRepository: JpaRepository<LevelExpType, Long>, JpaSpecific
 
     @Query("SELECT * FROM dohands.`level-exp-type` where  type = :type and exp <= :exp order by exp desc;", nativeQuery = true)
     fun findNextLevelNowCheck(type: String, exp: Long) : List<LevelExpType>
-//    SELECT * FROM dohands.`level-exp-type` where type = "F" and exp <= 13600 order by exp desc;
 
     fun findByLevel(level: String): LevelExpType
+
+    @Query("SELECT * FROM dohands.`level-exp-type` where  type = :type and exp > :exp order by exp;", nativeQuery = true)
+    fun findNextLevelUnder(type: String, exp: Long) : List<LevelExpType>
 
 }
