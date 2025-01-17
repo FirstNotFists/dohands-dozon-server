@@ -7,7 +7,7 @@ import kr.or.dohands.dozon.user.domain.UserRepository
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class UserTest (
+class UserBehaviorTest (
     private val userRepository: UserRepository
 ): BehaviorSpec({
 
