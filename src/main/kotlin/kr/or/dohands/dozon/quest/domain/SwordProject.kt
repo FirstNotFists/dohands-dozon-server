@@ -18,5 +18,23 @@ class SwordProject(
     val content: String // 비고
 
     ) {
+    companion object{
+        fun toEntity(
+            number: User,
+            date: String,
+            projectName: String,
+            exp: Long,
+            content: String
+        ):SwordProject {
+            return SwordProject(
+                0,
+                number,
+                date,
+                projectName,
+                exp,
+                content
+            )
+        }
+    }
 
 }
