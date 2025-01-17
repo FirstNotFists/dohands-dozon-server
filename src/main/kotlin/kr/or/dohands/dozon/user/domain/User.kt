@@ -10,14 +10,13 @@ import lombok.Getter
 class User(
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     val number: Long,
 
     val name: String,
     val joinDate: String,
     val id: String,
     val password: String,
-    val newPassword: String,
+    val newPassword: String? = null,
     val exp: Long,
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,5 +36,6 @@ class User(
     val pushToken: String
 
 ) {
+
 
 }
