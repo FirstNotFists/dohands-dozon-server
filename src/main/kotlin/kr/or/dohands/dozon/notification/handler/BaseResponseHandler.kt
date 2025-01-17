@@ -16,27 +16,26 @@ import kotlin.jvm.Throws
 @AllArgsConstructor
 class BaseResponseHandler<T>(
     private val responseClass: Class<out BaseResponse<T>>
-): HttpClientResponseHandler<T> {
+) : HttpClientResponseHandler<T> {
 
-    companion object{
+    companion object {
         private val OBJECT_MAPPER = ObjectMapper()
     }
 
     @Throws(IOException::class, HttpException::class)
-    private fun processResponse(httpResponse: ClassicHttpResponse) : BaseResponse<T>{
+    private fun processResponse(httpResponse: ClassicHttpResponse): BaseResponse<T> {
         val entity = httpResponse.entity ?: throw HttpException("Entity is null")
         val content = EntityUtils.toString(entity)
         println("Received Content: $content")
         return OBJECT_MAPPER.readValue(content, responseClass)
     }
 
-    @Throws(IOException::class, IOException::class)
+    @Throws(IOException::class, HttpException::class)
     override fun handleResponse(httpResponse: ClassicHttpResponse): T {
         val response = processResponse(httpResponse)
         if (httpResponse.code == 200) {
             return response.data
         }
-
         throw HttpException(
             "Response with errors",
             ErrorResponseException(

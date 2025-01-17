@@ -5,7 +5,6 @@ import kr.or.dohands.dozon.exp.domain.ExpHistory
 import kr.or.dohands.dozon.exp.domain.ExpHistoryRepository
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
-import java.util.*
 
 @Service
 class ExpHistoryService(
@@ -34,14 +33,6 @@ class ExpHistoryService(
         val entity = ExpHistory.toEntity(number, questType, updateDate, year, exp, grade, questId)
         save(entity)
 
-
-
-        // 있다면 부여 경험치가 같은지 매칭
-        // 없다면 기록을 추가하고 부여 경험치 부여
-        // 어떤 주기로 돌아가도록 할까 .. ㅠㅠ
-        // 기본은 하루에 한번 , 일주일에 한번 , 한달에 한번 이런식으로 들어가는게 맞을 듯하다
-        // 하루에 한번 돌아간다 치고의 clock을 활용한 테스트 코드를 작성해야할 듯하다.
-
         return "기록 완료"
     }
 
@@ -60,6 +51,27 @@ class ExpHistoryService(
 
     fun findByQuestIdAndQuestType(questId: Long, questType: String): List<ExpHistory> {
         return expHistoryRepository.findByQuestIdAndQuestType(questId, questType)
+    }
+
+    fun findByNumberOrderByUpdateDate(number: Long): List<ExpHistory> {
+        return expHistoryRepository.findByNumberOrderByUpdateDate(number)
+    }
+
+    fun findByQuestTypeAndNumberOrderByUpdateDate(number: Long, questType: String): List<ExpHistory> {
+        return expHistoryRepository.findByQuestTypeAndNumberOrderByUpdateDate(number, questType)
+    }
+
+
+    fun findCountByQuestTypeAndNumberHighExp(questType: String, number: Long): Long {
+        return expHistoryRepository.findCountByQuestTypeAndNumberHighExp(questType, number)
+    }
+
+    fun findExpHistoryWithLeaderQuests(number: Long, questType: String): List<Array<Any>> {
+        return expHistoryRepository.findExpHistoryWithLeaderQuests(questType, number)
+    }
+
+    fun findExpHistoryWithSwordProjects(questType: String, number: Long): List<Array<Any>> {
+        return expHistoryRepository.findExpHistoryWithSwordProjects(questType, number)
     }
 
 

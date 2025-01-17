@@ -1,6 +1,7 @@
 package com.niamedtech.expo.exposerversdk
 
 import com.fasterxml.jackson.core.JsonProcessingException
+import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import kr.or.dohands.dozon.notification.handler.BaseResponseHandler
 import kr.or.dohands.dozon.notification.request.PushNotification
@@ -25,14 +26,13 @@ class ExpoPushNotificationClient private constructor(
 
     private val objectMapper: ObjectMapper = ObjectMapperFactory().getInstance()
 
-    private val sendResponseHandler =
-        BaseResponseHandler(TicketResponse::class.java)
+    private val sendResponseHandler = BaseResponseHandler(TicketResponse::class.java)
 
     private val getReceiptHandler =
         BaseResponseHandler(ReceiptResponse::class.java)
 
     @Throws(IOException::class)
-    fun sendPushNotifications(notifications: List<PushNotification>): List<TicketResponse.Ticket> {
+    fun sendPushNotifications(notifications: List<PushNotification>): List<Any> {
         val request = createHttpPostRequest("/push/send", notifications)
         return httpClient.execute(request, sendResponseHandler)
     }

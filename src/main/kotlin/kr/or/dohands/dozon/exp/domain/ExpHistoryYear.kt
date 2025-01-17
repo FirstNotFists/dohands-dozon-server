@@ -13,7 +13,7 @@ class ExpHistoryYear(
     @JoinColumn(nullable = false, name = "number", referencedColumnName = "number_number")
     val number: Exp,
     val year: Int,
-    val exp: Int
+    val exp: Long
 ) {
 
 }

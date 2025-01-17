@@ -13,11 +13,11 @@ class ExpService(
     private val expRepository: ExpRepository,
 ) {
 
-    fun findTotalExpByNumber(user: User): Long{
+    fun findTotalExpByNumber(user: User): Long?{
         return expRepository.findtotalExpByNumber(user)
     }
 
-    fun findExpInYear(user: User): Long {
+    fun findExpInYear(user: User): Long? {
         return findTotalExpByNumber(user)
     }
 
@@ -37,7 +37,7 @@ class ExpService(
         expRepository.updateLeaderQuestExpByNumber(exp, number)
     }
 
-    fun findtotalExpByNumber(user: User): Long {
+    fun findtotalExpByNumber(user: User): Long? {
         return expRepository.findtotalExpByNumber(user)
     }
 

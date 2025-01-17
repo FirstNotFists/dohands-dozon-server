@@ -25,7 +25,7 @@ interface ExpRepository: JpaRepository<Exp, Long>, JpaSpecificationExecutor<Exp>
 
 
     @Query("select m.totalExp from exp m where m.number = :number")
-    fun findtotalExpByNumber(number: User) : Long
+    fun findtotalExpByNumber(number: User) : Long?
 
     @Query("SELECT b.number, b.name, b.career_name, b.part_name, b.level_level," +
             "a.totalExp, a.firstEvaluation, a.secondEvaluation, a.jobQuests," +
