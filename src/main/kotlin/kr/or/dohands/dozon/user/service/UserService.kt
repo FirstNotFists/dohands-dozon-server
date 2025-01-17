@@ -3,14 +3,12 @@ package kr.or.dohands.dozon.user.service
 import jakarta.transaction.Transactional
 import kr.or.dohands.dozon.core.configuration.jwt.JwtToken
 import kr.or.dohands.dozon.core.configuration.jwt.JwtUtil
+import kr.or.dohands.dozon.core.exception.UserExistException
 import kr.or.dohands.dozon.exp.controller.data.ExpHistoryResponse
 import kr.or.dohands.dozon.exp.service.ExpHistoryService
 import kr.or.dohands.dozon.exp.service.ExpService
 import kr.or.dohands.dozon.user.controller.data.*
-import kr.or.dohands.dozon.user.domain.Career
-import kr.or.dohands.dozon.user.domain.LevelExpType
-import kr.or.dohands.dozon.user.domain.User
-import kr.or.dohands.dozon.user.domain.UserRepository
+import kr.or.dohands.dozon.user.domain.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.lang.IllegalArgumentException
@@ -27,6 +25,20 @@ class UserService @Autowired constructor(
     @Transactional
     fun findUserByNumber(number: Long): User{
         return userRepository.findUserByNumber(number)
+    }
+
+    @Transactional
+    fun save(user: User): Unit{
+        saveBefore(user)
+        userRepository.save(user)
+    }
+
+    @Transactional
+    fun saveBefore(user: User):Unit {
+        val before = findUserByNumber(user.number)
+        if(before.name.isNotEmpty()){
+            throw UserExistException("이미 존재하는 사번입니다")
+        }
     }
 
     @Transactional
@@ -51,6 +63,7 @@ class UserService @Autowired constructor(
     @Transactional
     fun signIn(signInRequest: SignInRequest): SignInResponse {
         val user = userRepository.findUserById(signInRequest.id)
+
         val exp = expService.findExpInYear(user)
 
         validate(user, signInRequest)
@@ -94,7 +107,7 @@ class UserService @Autowired constructor(
         val myExp = user.exp
         println(myExp)
 
-        val nextLevelExp = levelExpTypeService.findNextLevel(type, myExp)
+        val nextLevelExp = levelExpTypeService.findNextLevelUnder(type, myExp)
         needNextLevelExp = nextLevelExp.get(0).exp // 총 필요 경험치
 
         val level = user.level.level
@@ -117,6 +130,34 @@ class UserService @Autowired constructor(
 
     fun findUsersByCareer(career: Career): List<User> {
         return userRepository.findUserByCareer(career)
+    }
+
+    fun findAll(): List<User> {
+        return userRepository.findAll()
+    }
+
+    fun findUsers(): List<User> {
+        return userRepository.findUsers()
+    }
+
+    fun update(request: UpdateUserRequest) {
+        val user = userRepository.findUserByNumber(request.number)
+        val level = levelExpTypeService.findByLevel(request.level)
+        val update = User(
+            request.number,
+            request.name,
+            request.joinDate,
+            user.id,
+            user.password,
+            user.newPassword,
+            request.exp,
+            level,
+            user.part,
+            user.career,
+            user.userType,
+            user.pushToken
+        )
+        userRepository.save(update)
     }
 
 

@@ -44,4 +44,7 @@ interface UserRepository: JpaRepository<User, Long>, JpaSpecificationExecutor<Us
 
     fun findUserByCareer(career: Career): List<User>
 
+    @Query("select m from users m join fetch m.level join fetch m.career join fetch m.part")
+    fun findUsers() : List<User>
+
 }
