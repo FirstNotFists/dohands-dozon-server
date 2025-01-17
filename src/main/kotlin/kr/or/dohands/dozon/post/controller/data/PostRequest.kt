@@ -6,18 +6,10 @@ data class PostRequest(
     val content: String
 ) {
 
-    data class create(
+    data class body(
         val title: String,
         val content: String
     ) {
-
-    }
-
-    data class update(
-        val id: Long,
-        val title: String,
-        val content: String
-    ){
 
     }
 
